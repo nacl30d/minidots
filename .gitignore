@@ -1,0 +1,6 @@
+.emacs.d/.backup
+.emacs.d/.cache
+.emacs.d/straight
+.emacs.d/elpa
+.emacs.d/transient
+log

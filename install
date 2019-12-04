@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+if [ -z "${DOTPATH:-}" ]; then
+    DOTPATH="${HOME}/.minidots"; export DOTPATH
+fi
+DOTFILE_GITHUB="https://github.com/d-salt/minidots.git"; export DOTFILE_GITHUB
+
+dotfiles_download() {
+    if [ -d "$DOTPATH" ]; then
+        echo "Error: $DOTPATH: already exists"
+        exit 1
+    fi
+
+    if type "git" > /dev/null 2>&1; then
+        git clone "$DOTFILE_GITHUB" "$DOTPATH"
+    else
+        echo "Error: require: git"
+        exit 1
+    fi
+    echo "Success Download"
+}
+
+dotfiles_deploy() {
+    echo "Deploying dotfiles..."
+
+    if [ ! -d $DOTPATH ]; then
+        echo "Error: $DOTPATH: not found"
+        exit 1
+    fi
+
+    cd "$DOTPATH"
+    make deploy
+    echo "Success Deploy"
+}
+
+# A script for the file named "install"
+dotfiles_install() {
+    dotfiles_download &&
+    dotfiles_deploy
+}
+
+if echo "$-" | grep -q "i"; then
+    # -> source a.sh
+    VITALIZED=1
+    export VITALIZED
+
+    : return
+else
+    dotfiles_install
+
+    # Restart shell if specified "bash -c $(curl -L {URL})"
+    # not restart:
+    #   curl -L {URL} | bash
+    if [ -p /dev/stdin ]; then
+        echo "Now continue with Rebooting your shell"
+    else
+        echo "Restarting your shell..."
+        exec "${SHELL}"
+    fi
+fi
