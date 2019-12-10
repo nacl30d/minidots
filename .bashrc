@@ -45,3 +45,12 @@ alias grep='grep --color=always -IHn'
 if is_remote_host; then
     PROMPT_COMMAND='__git_ps1 "\n$p_dir " "\n$p_host $p_user $p_end"'
 fi
+
+# TMUX
+if [[ -z "$TMUX" && -z "$STY" ]] && type tmux >/dev/null 2>&1; then
+  if tmux has-session; then
+    tmux attach;
+  else
+    tmux;
+  fi
+fi
