@@ -28,7 +28,7 @@
 (setq auto-save-file-name-transforms    ;auto-save file dir
       `((".*", (expand-file-name "~/.emacs.d/.backup/") t)))
 (setq auto-save-list-file-prefix "~/.emacs.d/.backup/auto-save-list/.saves-")
-
+(setq vc-follow-symlinks t)
 
 ;;----------------------------------------------------------------------------------
 ;; mode line
