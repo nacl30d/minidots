@@ -34,7 +34,7 @@ function er () {
 }
 
 # Alias
-alias e='emacsclient -t'
+alias e='emacsclient -t -a ""'
 alias ls='ls --color'
 alias la='ls -la'
 alias ll='ls -l'
