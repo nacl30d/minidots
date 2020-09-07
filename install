@@ -55,6 +55,6 @@ else
         echo "Now continue with Rebooting your shell"
     else
         echo "Restarting your shell..."
-        exec "${SHELL}"
+        exec "${SHELL}" -l
     fi
 fi
