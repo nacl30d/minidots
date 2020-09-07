@@ -12,7 +12,7 @@ fi
 
 
 ## Prompt
-if [ ! -f ~/.git-prompt.sh ]; then curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -o .git-prompt.sh; fi
+if [ ! -f ~/.git-prompt.sh ]; then curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -o ~/.git-prompt.sh; fi
 . ~/.git-prompt.sh
 GIT_PS1_SHOWDIRTYSTATE=true
 GIT_PS1_SHOWSTASHSTATE=true
