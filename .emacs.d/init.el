@@ -268,7 +268,7 @@
 (use-package multi-term
   :bind ("C-c t" . multi-term)
   :config
-  (setq multi-term-program "/usr/local/bin/zsh")
+  (setq multi-term-program "/bin/bash")
   (delete "C-c" term-unbind-key-list)
   (defun term-send-previous-line ()
     (interactive)
