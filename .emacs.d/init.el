@@ -4,6 +4,26 @@
 ;;; Code:
 
 ;;----------------------------------------------------------------------------------
+;; straight.el
+;;----------------------------------------------------------------------------------
+
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+(straight-use-package 'use-package)
+(setq straight-use-package-by-default t)
+
+;;----------------------------------------------------------------------------------
 ;; Encoding and Language
 ;;----------------------------------------------------------------------------------
 (set-terminal-coding-system 'utf-8)
@@ -45,32 +65,31 @@
 (defvar linum-format "%d ")
 (column-number-mode t)
 
-
 ;;----------------------------------------------------------------------------------
 ;; use package
 ;;----------------------------------------------------------------------------------
-(require 'package)
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
-(package-initialize)
+;; (require 'package)
+;; ;; Added by Package.el.  This must come before configurations of
+;; ;; installed packages.  Don't delete this line.  If you don't want it,
+;; ;; just comment it out by adding a semicolon to the start of the line.
+;; ;; You may delete these explanatory comments.
+;; (package-initialize)
 
-;;;;; add melpa and orgmode for packages
-(setq package-archives
-      '(("gnu" . "http://elpa.gnu.org/packages/")
-        ("melpa" . "http://melpa.org/packages/")
-        ("org" . "http://orgmode.org/elpa/")))
+;; ;;;;; add melpa and orgmode for packages
+;; (setq package-archives
+;;       '(("gnu" . "http://elpa.gnu.org/packages/")
+;;         ("melpa" . "http://melpa.org/packages/")
+;;         ("org" . "http://orgmode.org/elpa/")))
 
-(unless package-archive-contents
-  (package-refresh-contents))
-;;;;; ensure to use use-package
-(when (not (package-installed-p 'use-package))
-  (package-install 'use-package))
-(require 'use-package)
+;; (unless package-archive-contents
+;;   (package-refresh-contents))
+;; ;;;;; ensure to use use-package
+;; (when (not (package-installed-p 'use-package))
+;;   (package-install 'use-package))
+;; (require 'use-package)
 
-(require 'use-package-ensure)
-(setq use-package-always-ensure t)
+;; (require 'use-package-ensure)
+;; (setq use-package-always-ensure t)
 
 
 ;;----------------------------------------------------------------------------------
@@ -80,6 +99,10 @@
 (menu-bar-mode -1)                      ;hidden menu bar
 (setq inhibit-startup-message t)        ;hidden startup msg
 (global-set-key (kbd "C-x p") '(lambda () (interactive)(other-window -1))) ;reverse windo
+
+(use-package window-numbering
+  :init
+  (window-numbering-mode 1))
 
 (use-package srcery-theme               ;theme
   :init
@@ -218,6 +241,11 @@
   :mode (("\\.json$" . json-mode))
   :config
   (setq js-indent-level 2))
+
+(use-package dockerfile-mode
+  :mode (("Dockerfile\\'" . dockerfile-mode)))
+
+(use-package docker-compose-mode)
 
 ;; TeX mode
 (setq auto-mode-alist
