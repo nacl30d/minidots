@@ -40,6 +40,8 @@
 ;;----------------------------------------------------------------------------------
 (setq-default tab-width 4 indent-tabs-mode nil)
 (setq completion-ignore-case t)
+(setq read-buffer-completion-ignore-case t)
+(setq read-file-name-completion-ignore-case t)
 (global-auto-revert-mode 1)
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq backup-directory-alist            ;backup file dir
