@@ -2,4 +2,4 @@
 
 ## Installation  
 
-`$ bash -c "$(curl -L cli.d-salt.net/minidots)"`  
+`$ bash -c "$(curl -L cli.nacl30d.com/minidot)"`  
