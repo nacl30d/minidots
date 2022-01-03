@@ -55,7 +55,8 @@ alias grep='grep --color=always -IHn'
 
 
 # TMUX
-if [[ -z "$TMUX" && -z "$STY" ]] && type tmux >/dev/null 2>&1; then
+# NOTE: MUST `-n "$PS1"` for working with ansible ssh
+if [[ -n "$PS1" && -z "$TMUX" && -z "$STY" ]] && type tmux >/dev/null 2>&1; then
   if tmux has-session; then
     tmux attach;
   else
